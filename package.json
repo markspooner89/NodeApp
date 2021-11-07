@@ -4,8 +4,7 @@
   "description": "nodeapp",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon app.js -e js,hbs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js -e js,hbs"
   },
   "author": "Mark Spooner",
   "license": "ISC",
