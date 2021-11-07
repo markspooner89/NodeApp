@@ -16,10 +16,8 @@ app.use(express.static(publicFolder))
 const memberService = require("./services/memberService");
 
 app.get("", (_, res) => { 
-    const members = memberService.getMembers();
     res.render("members", { 
-        "pageTitle": "Members",
-        "members": members
+        "pageTitle": "Members"
     });
 });
 
@@ -32,13 +30,19 @@ app.get("/member/:id", (req, res) => {
     });
 });
 
-// app.get("/api/member/:id", (_, res) => { 
-//     res.send([
-//         { "id": 1, "name": "Mark" }
-//     ]);
-// });
+app.get("/api/members", (_, res) => { 
+    setTimeout(() => {
+        const members = memberService.getMembers();
+        res.send(members);
+    }, 1000)
+ 
+});
 
-app.get("/api/member/:id",)
+app.get("/api/member/:id", (req, res) => { 
+    const id = parseInt(req.params.id);
+    const member = memberService.getMember(id);
+    res.send(member);
+});
 
 app.listen(3000, () => { 
    console.log("server is running!"); 

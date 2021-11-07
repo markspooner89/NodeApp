@@ -9,10 +9,28 @@
 </head>
 <body>
     {{>header}}
-    <div>
-        {{#each members}}
-            <p><a href="/member/{{id}}">{{name}}</a></p>
-        {{/each}}
-    </div>
+    <div id="divMembers"></div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    const divMembers = document.querySelector("#divMembers");
+    const pLoading = document.createElement("p");
+    pLoading.innerText = "Fetching members...";
+    divMembers.appendChild(pLoading);
+    fetch("api/members")
+        .then(response => response.json()
+        .then(members => { 
+            divMembers.removeChild(pLoading);
+            members.forEach(member => {
+                const pMember = document.createElement("p");
+                const aMember = document.createElement("a");
+                aMember.href = `/member/${member.id}`;
+                aMember.innerText = member.name;
+                pMember.appendChild(aMember); 
+                divMembers.appendChild(pMember);
+            });
+        }));
+    
+</script>
